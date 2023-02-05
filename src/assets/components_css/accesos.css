@@ -1,0 +1,9 @@
+.main-div-acceso{
+    border-style: dashed;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    position: relative;
+    top: 0%;
+    left: 0%;
+}
