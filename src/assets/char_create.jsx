@@ -1,18 +1,40 @@
 import { useState } from "react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import { invoke } from "@tauri-apps/api";
 import "../App.css"
 
 function Creator(){
+    const {user_id} = useParams()
     const [selectorCounter, setSelectorCounter] = useState(0);
     const [isChecked1, setisChecked1] = useState(false);
     const [isChecked2, setisChecked2] = useState(false);
     const [isChecked3, setisChecked3] = useState(false);
+    const [characterState, setCharacterState] = useState(null);
+    const [characterId, setCharacterId] = useState(null);
 
 
     async function send_stats() {
-        var response = await invoke("try_register", {danio: isChecked1, vida: isChecked2, mana: isChecked3});
-        setRegisterState(response);
+        var response = await invoke("create_character", {userId: user_id, lifePoint: isChecked2, damagePoint: isChecked1, manaPoint: isChecked3});
+        setCharacterState(response);
+        if (response == "Created_user_char"){
+            var char_id = await invoke("get_character", user_id);
+            setCharacterId(JSON.parse(char_id));
+        }
+    }
+
+    function renderFeedbackBox(){
+        if(characterState == "Created_user_char"){
+            return (
+                <div>
+                  <Link to={`/menu/${user_id}/${characterId}`}>
+                    <button type="button" >
+                      Acceder
+                    </button>
+                  </Link>
+                </div>)
+        } else {
+            return (<div>Completa el formulario</div>)
+        }
     }
 
     function checkBox(box_number){
@@ -60,6 +82,7 @@ function Creator(){
             <input type="checkbox" id="stat3" name="stat3" value="mana" checked={isChecked3} onChange={handleThirdBox}/>
             <label htmlFor="stat3"> Mana</label><br/>
             <button onClick={()=>send_stats()}>Terminar</button>
+            {renderFeedbackBox()}
         </div>
     );
 }

@@ -1,11 +1,11 @@
 import {Link, useParams} from "react-router-dom";
 
 function Profile(props){
-    const {user_id} = useParams();
+    const {user_id, character_id} = useParams();
 
     return (
         <div>
-            <Link to={`/menu/${user_id}`}>Cerra</Link>
+            <Link to={`/menu/${user_id}/${character_id}`}>Cerra</Link>
             
             <h4>Personaje:</h4>
             Vidaaaaas

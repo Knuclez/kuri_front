@@ -68,8 +68,8 @@ async fn get_character(user_id: String) -> String{
 }
 
 #[tauri::command]
-async fn create_character(user_id: String) -> String{
-    let url = format!("http://localhost:8080/user/{}/create_character",user_id);
+async fn create_character(user_id: String, life_point: bool, damage_point: bool, mana_point: bool) -> String{
+    let url = format!("http://localhost:8080/user/{}/create_character/{}/{}/{}",user_id, life_point, damage_point, mana_point);
     let respuesta =  match reqwest::get(url).await{
         Ok(response) => response,
         Err(error) => panic!("Problema trayendo la request: {}", error),
