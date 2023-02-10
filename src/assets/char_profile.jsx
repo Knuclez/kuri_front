@@ -11,7 +11,6 @@ function Profile(props){
             const character_request = await invoke("get_character", {userId: user_id})
             const character_json = JSON.parse(character_request);
             setCharacter(character_json);
-            console.log(character_json);
         }
         get_character();
     }, []);

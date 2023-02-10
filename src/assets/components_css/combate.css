@@ -31,3 +31,5 @@
     position: absolute;
     left: 80%;
 }
+
+li { cursor: pointer;}
