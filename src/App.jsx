@@ -9,19 +9,7 @@ function App() {
   let [loginState, setLoginState] = useState("");
   let [userId, setUserId] = useState(null);
   let [characterState, setCharacterState] = useState(null);
-  let [characterId, setCharacterId] = useState(null);
 
-  
-
-  async function check_for_character(u_id){
-      var response = await invoke("check_for_character", {userId: u_id});
-      setCharacterState(response);
-
-      if (response == "User_haves_char"){
-        var char_id = await invoke("get_character", userId);
-        setCharacterId(JSON.parse(char_id));
-      }
-  }
 
   async function try_login_js() {
     var response = await invoke("try_login", {username: usuario, pass: pass});
@@ -34,12 +22,18 @@ function App() {
     }
   }
 
+  async function check_for_character(u_id){
+    var response = await invoke("check_for_character", {userId: u_id});
+    setCharacterState(response);
+  }
+
   function renderAnswer() {
     if (userId != null) {
+      
       if (characterState == "User_haves_char"){
         return (
         <div>
-          <Link to={`/menu/${userId}/${characterId}`}>
+          <Link to={`/menu/${userId}`}>
             <button type="button" >
               Acceder
             </button>

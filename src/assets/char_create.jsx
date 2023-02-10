@@ -10,23 +10,18 @@ function Creator(){
     const [isChecked2, setisChecked2] = useState(false);
     const [isChecked3, setisChecked3] = useState(false);
     const [characterState, setCharacterState] = useState(null);
-    const [characterId, setCharacterId] = useState(null);
 
 
     async function send_stats() {
         var response = await invoke("create_character", {userId: user_id, lifePoint: isChecked2, damagePoint: isChecked1, manaPoint: isChecked3});
         setCharacterState(response);
-        if (response == "Created_user_char"){
-            var char_id = await invoke("get_character", user_id);
-            setCharacterId(JSON.parse(char_id));
-        }
     }
 
     function renderFeedbackBox(){
         if(characterState == "Created_user_char"){
             return (
                 <div>
-                  <Link to={`/menu/${user_id}/${characterId}`}>
+                  <Link to={`/menu/${user_id}`}>
                     <button type="button" >
                       Acceder
                     </button>

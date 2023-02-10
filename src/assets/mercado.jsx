@@ -1,7 +1,8 @@
 import { useState } from "react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 function Mercado() {
+    const {user_id} = useParams();
     let json_generico = {"nombre" : "nombre item 1", "valor" : 100, "descripcion" : "alta descripcion bro"};
     const [item1, setItem1] = useState(json_generico);
     return (
@@ -29,7 +30,7 @@ function Mercado() {
                 <td>{item1.valor}</td>
               </tr>
             </table>
-            <Link to="/menu">Volver</Link>
+            <Link to={`/menu/${user_id}`}>Volver</Link>
         </div>
     )
 };

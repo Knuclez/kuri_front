@@ -1,15 +1,16 @@
 import { useState } from "react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import "../components_css/combate.css";
 
 function Combate(){
+    const {user_id} = useParams();
     const [s1, setS1] = useState("spell 1");
     const [enemy_hp, setEnemy_hp] = useState(100);
     const [my_hp, setMy_hp] = useState(100);
     
     return(
         <div>
-            <Link to="/exploracion">volver</Link>
+            <Link to={`/exploracion/${user_id}`}>volver</Link>
             <h1>combate</h1>
             
             <div className="cuadro-vida-rival"> {enemy_hp} </div>
